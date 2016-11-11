@@ -10,6 +10,7 @@ class FCM
 
   # constants
   GROUP_NOTIFICATION_BASE_URI = 'https://android.googleapis.com/gcm'
+  INSTANCE_MANAGEMENT_BASE_URI = 'https://iid.googleapis.com/iid/v1'
 
   attr_accessor :timeout, :api_key
 
@@ -153,6 +154,22 @@ class FCM
     if topic =~ /[a-zA-Z0-9\-_.~%]+/
       send_with_notification_key('/topics/' + topic, options)
     end
+  end
+
+  def subscribe(topic, registration_id)
+    params = {
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "key=#{@api_key}"
+      }
+    }
+
+    response = nil
+
+    for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
+      response = self.class.post("#{registration_id}/rel/topics/#{topic}", params.merge(@client_options))
+    end
+    build_response(response)
   end
 
   private
