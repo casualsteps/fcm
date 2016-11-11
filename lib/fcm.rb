@@ -167,7 +167,7 @@ class FCM
     response = nil
 
     for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
-      response = self.class.post("#{registration_id}/rel/topics/#{topic}", params.merge(@client_options))
+      response = self.class.post("/#{registration_id}/rel/topics/#{topic}", params.merge(@client_options))
     end
     build_response(response)
   end
