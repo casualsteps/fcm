@@ -156,24 +156,28 @@ class FCM
     end
   end
 
-  def subscribe(topic, registration_id)
+  def subscribe(topic, registration_ids)
+    body = { to: topic, registration_tokens: registration_ids }
+
     params = {
+      body: body.to_json,
       headers: {
         'Content-Type' => 'application/json',
         'Authorization' => "key=#{@api_key}"
-      }
+      },
     }
 
     response = nil
 
     for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
-      response = self.class.post("/#{registration_id}/rel/topics/#{topic}", params.merge(@client_options))
+      response = self.class.post(":batchAdd", params.merge(@client_options))
     end
     build_response(response)
   end
+  end
 
-  def unsubscribe(topic, registration_id)
-    body = { to: topic, registration_tokens: [registration_id] }
+  def unsubscribe(topic, registration_ids)
+    body = { to: topic, registration_tokens: registration_ids }
 
     params = {
       body: body.to_json,
