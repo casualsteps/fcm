@@ -172,6 +172,25 @@ class FCM
     build_response(response)
   end
 
+  def unsubscribe(topic, registration_id)
+    body = { to: topic, registration_tokens: [registration_id] }
+
+    params = {
+      body: body.to_json,
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => "key=#{@api_key}"
+      },
+    }
+
+    response = nil
+
+    for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
+      response = self.class.post(" https://iid.googleapis.com/iid/v1:batchRemove", params.merge(@client_options))
+    end
+    build_response(response)
+  end
+
   private
 
   def for_uri(uri)
