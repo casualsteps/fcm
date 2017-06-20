@@ -174,7 +174,6 @@ class FCM
     end
     build_response(response)
   end
-  end
 
   def unsubscribe(topic, registration_ids)
     body = { to: topic, registration_tokens: registration_ids }
