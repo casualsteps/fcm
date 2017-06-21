@@ -170,7 +170,7 @@ class FCM
     response = nil
 
     for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
-      response = self.class.post(":batchAdd", params.merge(@client_options))
+      response = self.class.post('https://iid.googleapis.com/iid/v1:batchAdd', params.merge(@client_options))
     end
     build_response(response)
   end
@@ -189,7 +189,7 @@ class FCM
     response = nil
 
     for_uri(INSTANCE_MANAGEMENT_BASE_URI) do
-      response = self.class.post(":batchRemove", params.merge(@client_options))
+      response = self.class.post("https://iid.googleapis.com/iid/v1:batchRemove", params.merge(@client_options))
     end
     build_response(response)
   end
