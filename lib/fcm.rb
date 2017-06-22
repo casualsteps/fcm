@@ -157,7 +157,7 @@ class FCM
   end
 
   def subscribe(topic, registration_ids)
-    body = { to: topic, registration_tokens: registration_ids }
+    body = { to: "/topics/#{topic}, registration_tokens: registration_ids }
 
     params = {
       body: body.to_json,
@@ -176,7 +176,7 @@ class FCM
   end
 
   def unsubscribe(topic, registration_ids)
-    body = { to: topic, registration_tokens: registration_ids }
+    body = { to: "/topics/#{topic}, registration_tokens: registration_ids }
 
     params = {
       body: body.to_json,
@@ -193,7 +193,7 @@ class FCM
     end
     build_response(response)
   end
-
+  
   private
 
   def for_uri(uri)
