@@ -157,6 +157,7 @@ class FCM
   end
 
   def subscribe(topic, registration_ids)
+    raise "registration_ids is not an array" unless registration_ids.kind_of?(Array)
     body = { to: "/topics/#{topic}", registration_tokens: registration_ids }
 
     params = {
@@ -176,6 +177,7 @@ class FCM
   end
 
   def unsubscribe(topic, registration_ids)
+    raise "registration_ids is not an array" unless registration_ids.kind_of?(Array)
     body = { to: "/topics/#{topic}", registration_tokens: registration_ids }
 
     params = {
